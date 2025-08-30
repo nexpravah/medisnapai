@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -113,35 +114,87 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          BannerAdWidget(),
+          // BannerAdWidget(),
         ],
       ),
     );
   }
 }
 
+// =================
+
 void showLoadingDialog() {
+  final messages = ["Identifying medicine, please wait...", "Extracting details...", "Generating details..."];
+
+  final RxInt index = 0.obs;
+  Timer? timer;
+
+  // Start rotating messages every 2 seconds
+  timer = Timer.periodic(const Duration(seconds: 2), (t) {
+    if (index.value < messages.length - 1) {
+      index.value++;
+    } else {
+      // 🔹 stop at last message (no infinite loop)
+      timer?.cancel();
+    }
+  });
+
   Get.dialog(
     WillPopScope(
-      onWillPop: () async => false, // Prevent back button
+      onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: Colors.black.withValues(alpha: 0.3), // Dimmed background
+        backgroundColor: Colors.black.withValues(alpha: 0.3),
         body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(),
-              const SizedBox(height: 16),
-              const Text('Loading, please wait...', style: TextStyle(fontSize: 16)),
-            ],
+          child: Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+              child: SizedBox(
+                width: 250, // 🔹 fixed width so card size doesn't jump
+                child: Obx(
+                  () => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const CircularProgressIndicator(),
+                      const SizedBox(height: 20),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 600),
+                        transitionBuilder: (child, animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(0.2, 0), // slide from right
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            ),
+                          );
+                        },
+                        child: Text(
+                          messages[index.value],
+                          key: ValueKey(index.value), // 🔹 important for animation
+                          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),
     ),
-    barrierDismissible: false, // Prevent tap outside
-  );
+    barrierDismissible: false,
+  ).then((_) {
+    timer?.cancel(); // cleanup
+  });
 }
 
+
+// =================
 class BannerAdWidget extends StatefulWidget {
   const BannerAdWidget({Key? key}) : super(key: key);
 
