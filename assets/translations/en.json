@@ -1,0 +1,20 @@
+{
+  "app_name": "Medilens",
+  "welcome_message": "Welcome to my app!",
+  "english": "English",
+  "hindi": "Hindi",
+  "gujarati": "Gujarati",
+  "settings": "Settings",
+  "app_language": "App language",
+  "choose_theme": "Choose Theme",
+  "light": "Light",
+  "dark": "Dark",
+  "system_default": "System default",
+  "cancle": "Cancle",
+  "ok": "Ok",
+  "theme": "Theme",
+  "privacy_policy": "Privacy Policy",
+  "terms_and_condition": "Terms and Conditions",
+  "about_us": "About Us",
+  "page_load_error": "Page not found or failed to load"
+}

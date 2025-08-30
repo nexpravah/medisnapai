@@ -1,0 +1,20 @@
+{
+  "app_name": "Medilens",
+  "welcome_message": "મારી એપ માં આપનું સ્વાગત છે!",
+  "english": "અંગ્રેજી",
+  "hindi": "હિન્દી",
+  "gujarati": "ગુજરાતી",
+  "settings": "સેટિંગ્સ",
+  "app_language": "એપની ભાષા",
+  "choose_theme": "થીમ પસંદ કરો",
+  "light": "લાઈટ",
+  "dark": "કાળું",
+  "system_default": "સિસ્ટમ ડિફોલ્ટ",
+  "cancle": "રદ કરો",
+  "ok": "ઓકે",
+  "theme": "થીમ",
+  "privacy_policy": "ગોપનીયતા નીતિ",
+  "terms_and_condition": "નિયમો અને શરતો",
+  "about_us": "અમારા વિશે",
+  "page_load_error": "પૃષ્ઠ મળ્યું નહીં અથવા લોડ થવામાં નિષ્ફળ ગયું"
+}
